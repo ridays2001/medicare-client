@@ -8,3 +8,5 @@ The frontend part of our college mini project.
 -   Open your terminal and navigate to the project folder.
 -   Use `npm install` to install the dependencies.
 -   Use `npm start` and wait for the client server to start.
+
+© Riday 💙
