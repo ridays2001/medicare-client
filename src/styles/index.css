@@ -1,0 +1,58 @@
+body {
+	background-image: url('../img/bg.jpg');
+	background-size: cover;
+}
+
+.box {
+	background-color: #ffffff;
+	box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+	border-radius: 21px;
+	margin-top: 1.75em;
+	margin-bottom: 5em;
+	padding: 4em 2.5em;
+	padding-bottom: 1em;
+}
+
+.form-group > .btn {
+	margin-top: 1em;
+}
+
+.icon {
+	background-color: #e9ecef;
+}
+
+.out-grn {
+	border: solid 1px #28a745;
+}
+
+.out-red {
+	border: solid 1px #dc3545;
+}
+
+a:hover::after,
+a:focus::after {
+	content: ' ↗';
+}
+
+@media screen and (min-width: 768px) {
+	.box {
+		margin-top: 3em;
+		margin-bottom: 3em;
+	}
+
+	#title {
+		margin-top: 0.5em;
+	}
+
+	.form-group {
+		margin: 1em auto;
+	}
+
+	.form-group > .btn {
+		margin-top: -0.5em;
+	}
+
+	.errMsg {
+		float: inline-end;
+	}
+}
