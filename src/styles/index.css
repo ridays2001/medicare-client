@@ -1,6 +1,29 @@
+@font-face {
+	font-family: 'Bree Serif';
+	src: url('../media/Bree_Serif.ttf') format('truetype');
+}
+
 body {
-	background-image: url('../img/bg.jpg');
+	background-image: url('../media/bg.jpg');
 	background-size: cover;
+	background-repeat: no-repeat;
+	font-family: 'Bree Serif', 'Times New Roman', Times, serif;
+}
+
+#logo {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 2.5em;
+	margin-bottom: 0.5em;
+}
+
+.nav {
+	font-size: 1.25rem;
+}
+
+.quote {
+	margin: 3em auto;
 }
 
 .box {
@@ -29,8 +52,8 @@ body {
 	border: solid 1px #dc3545;
 }
 
-a:hover::after,
-a:focus::after {
+.box a:hover::after,
+.box a:focus::after {
 	content: ' ↗';
 }
 
@@ -38,10 +61,6 @@ a:focus::after {
 	.box {
 		margin-top: 3em;
 		margin-bottom: 3em;
-	}
-
-	#title {
-		margin-top: 0.5em;
 	}
 
 	.form-group {
