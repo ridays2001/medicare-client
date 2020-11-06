@@ -22,7 +22,7 @@ const Login = () => {
 	const [pass, setPass] = useState(false);
 
 	return (
-		<div className='box col-11 col-md-6 mx-auto justify-content-center'>
+		<div className='box col-11 col-md-6 mx-auto justify-content-center py-5'>
 			<h2 id='title' className='text-center'>
 				Login
 			</h2>
