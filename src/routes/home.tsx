@@ -13,11 +13,16 @@ const Home = () => {
 				Home
 			</h2>
 
-			<div className='d-flex justify-content-around mt-4 nav'>
-				<Link to={{ pathname: '/login' }}>Login</Link>
-				<Link to={{ pathname: '/register' }}>Register</Link>
+			<div className='mt-4 nav'>
+				<Link to={{ pathname: '/login' }} className='col mx-auto text-center'>
+					Login
+				</Link>
+				<Link to={{ pathname: '/register' }} className='col mx-auto text-center'>
+					Register
+				</Link>
 			</div>
 
+			{/* cSpell: disable */}
 			<div id='quotes' className='col-md-8 justify-content-around mx-auto mt-5'>
 				<div className='quote'>
 					“The art of medicine consists of amusing the patient while nature cures the disease.”
@@ -53,6 +58,7 @@ const Home = () => {
 					<div className='d-flex justify-content-end'>― Azem Premji</div>
 				</div>
 			</div>
+			{/* cSpell: enable */}
 		</div>
 	);
 };
