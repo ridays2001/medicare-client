@@ -1,11 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
+import { api } from '../util/misc';
 
 const Home = () => {
+	const [cookies] = useCookies();
+	const [login, setLogin] = useState(false);
+
 	useEffect(() => {
 		document.title = 'Home | Medicare';
+
+		(async () => {
+			const { status } = await fetch(`${api}/auth/validate-login`, {
+				method: 'POST',
+				body: JSON.stringify(cookies),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			if (status === 200) setLogin(true);
+		})();
+
 		return undefined;
-	}, []);
+	}, [cookies]);
 
 	return (
 		<div className='box col-11 col-md-6 mx-auto justify-content-center py-5'>
@@ -13,14 +30,26 @@ const Home = () => {
 				Home
 			</h2>
 
-			<div className='mt-4 nav'>
-				<Link to={{ pathname: '/login' }} className='col mx-auto text-center'>
-					Login
-				</Link>
-				<Link to={{ pathname: '/register' }} className='col mx-auto text-center'>
-					Register
-				</Link>
-			</div>
+			{!login && (
+				<div className='mt-4 nav'>
+					<Link to={{ pathname: '/login' }} className='col mx-auto text-center'>
+						Login
+					</Link>
+					<Link to={{ pathname: '/register' }} className='col mx-auto text-center'>
+						Register
+					</Link>
+				</div>
+			)}
+			{login && (
+				<div className='mt-4 nav'>
+					<Link to={{ pathname: '/dashboard' }} className='col mx-auto text-center'>
+						Dashboard
+					</Link>
+					<Link to={{ pathname: '/logout' }} className='col mx-auto text-center'>
+						Logout
+					</Link>
+				</div>
+			)}
 
 			{/* cSpell: disable */}
 			<div id='quotes' className='col-md-8 justify-content-around mx-auto mt-5'>
