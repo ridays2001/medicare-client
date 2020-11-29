@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import { api, auth } from '../util/misc';
+import { api } from '../util/misc';
 import FormField from '../components/FormField';
 import SuccessMessage from '../components/SuccessMessage';
 import FailMessage from '../components/FailMessage';
@@ -20,6 +21,7 @@ const Login = () => {
 	const [done, setDone] = useState(false);
 	const [fail, setFail] = useState<string | undefined>(undefined);
 	const [pass, setPass] = useState(false);
+	const [_, setCookie] = useCookies();
 
 	return (
 		<div className='box col-11 col-md-6 mx-auto justify-content-center py-5'>
@@ -33,7 +35,27 @@ const Login = () => {
 						username: Yup.string().required('Your username is required!'),
 						password: Yup.string().required('Your password is required!')
 					})}
-					onSubmit={async (_, { setSubmitting }) => {
+					onSubmit={async (values, { setSubmitting }) => {
+						const res = await fetch(`${api}/auth/login`, {
+							method: 'POST',
+							body: JSON.stringify(values),
+							headers: {
+								'Content-Type': 'application/json'
+							}
+						}).then(async (r) => ({ code: r.status, text: await r.text() }));
+						if (res.code !== 200) setFail(`[${res.code}] ${res.text}`);
+						else {
+							setCookie('username', values.username, {
+								path: '/',
+								maxAge: 6048e2,
+								sameSite: 'lax'
+							});
+							setCookie('token', res.text, {
+								path: '/',
+								maxAge: 6048e2,
+								sameSite: 'lax'
+							});
+						}
 						setSubmitting(false);
 						setDone(true);
 					}}
