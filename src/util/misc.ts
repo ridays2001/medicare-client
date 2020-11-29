@@ -16,3 +16,11 @@ export const errMsg = {
 };
 
 export const api = (process.env.API_URL as string) || 'http://localhost:9000';
+
+export type User = {
+	id: number;
+	name: string;
+	username: string;
+	dob: Date;
+	email: string;
+};
