@@ -78,14 +78,34 @@ const Login = () => {
 								setPass={setPass}
 							/>
 
-							<Link to={{ pathname: '/register' }}>New user? Register here</Link>
+							<div className='d-flex justify-content-end d-md-none'>
+								<Link to={{ pathname: '/request-pwd-reset' }}>Forgot password?</Link>
+							</div>
+
+							<div className='d-none d-md-flex justify-content-between'>
+								<Link to={{ pathname: '/register' }}>New user? Register here</Link>
+								<Link to={{ pathname: '/request-pwd-reset' }}>Forgot password? Reset it here</Link>
+							</div>
 
 							<SubmitButton disable={isSubmitting} />
+
+							<div className='d-block d-md-none text-center'>
+								<br />
+								<Link to={{ pathname: '/register' }}>Create new user?</Link>
+							</div>
 						</Form>
 					)}
 				</Formik>
 			)}
-			<SuccessMessage show={done && !fail} desc='Logged in successfully!' />
+			<SuccessMessage
+				show={done && !fail}
+				desc={
+					<span>
+						Logged In Successfully! Please proceed to{' '}
+						<Link to={{ pathname: '/dashboard' }}>dashboard.</Link>
+					</span>
+				}
+			/>
 			<FailMessage show={done} fail={fail} />
 		</div>
 	);
