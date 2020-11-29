@@ -24,3 +24,30 @@ export type User = {
 	dob: Date;
 	email: string;
 };
+
+export type Doctor = {
+	id: number;
+	locality: string;
+	name: string;
+	speciality: string;
+	pin_code: number;
+	phone_number: string;
+};
+
+export type Store = {
+	id: number;
+	locality: string;
+	name: string;
+	website: string;
+	pin_code: number;
+	phone_number: string;
+};
+
+export type Meds = {
+	data: Array<{
+		generic: string;
+		brand: string;
+		manufacturer: string;
+		route: string;
+	}>;
+};
