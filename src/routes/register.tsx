@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { api, auth } from '../util/misc';
+import { api } from '../util/misc';
 
 import FormField from '../components/FormField';
 import SuccessMessage from '../components/SuccessMessage';
@@ -51,11 +51,10 @@ const Register = () => {
 							method: 'POST',
 							body: JSON.stringify(values),
 							headers: {
-								'Content-Type': 'application/json',
-								Authorization: auth
+								'Content-Type': 'application/json'
 							}
 						}).then(async (r) => ({ code: r.status, text: await r.text() }));
-						if (res.code !== 200) setFail(res.text);
+						if (res.code !== 200) setFail(`[${res.code}] ${res.text}`);
 						setDone(true);
 						setSubmitting(false);
 					}}
@@ -112,7 +111,15 @@ const Register = () => {
 					)}
 				</Formik>
 			)}
-			<SuccessMessage show={done && !fail} desc='Registered successfully!' />
+			<SuccessMessage
+				show={done && !fail}
+				desc={
+					<span>
+						Registered successfully! Please check your email for the{' '}
+						<Link to={{ pathname: '/verify' }}>verification instructions.</Link>
+					</span>
+				}
+			/>
 			<FailMessage show={done} fail={fail} />
 		</div>
 	);
