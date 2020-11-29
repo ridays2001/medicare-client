@@ -14,7 +14,7 @@ const Meds = () => {
 	const [list, setList] = useState<MedsType | undefined>(undefined);
 
 	useEffect(() => {
-		document.title = 'Stores | Medicare';
+		document.title = 'Medicines | Medicare';
 
 		if (!login) {
 			(async () => {
