@@ -1,3 +1,18 @@
-export const api = 'http://localhost:8080';
+import * as errMessages from './errMessages';
 
-export const auth = 'Bearer: Riday Shah';
+export type ErrorCodes = keyof typeof errMsg;
+
+export const errMsg = {
+	500: errMessages.err500,
+	501: errMessages.err501,
+	502: errMessages.err502,
+	503: errMessages.err503,
+	504: errMessages.err504,
+	505: errMessages.err505,
+	506: errMessages.err506,
+	507: errMessages.err507,
+	508: errMessages.err508,
+	509: errMessages.err509
+};
+
+export const api = (process.env.API_URL as string) || 'http://localhost:9000';
