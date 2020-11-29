@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import qs from 'querystring';
 
 import { api } from '../util/misc';
@@ -20,6 +21,8 @@ type FormValues = {
 const VerifyMail = () => {
 	const [done, setDone] = useState(false);
 	const [fail, setFail] = useState<string | undefined>(undefined);
+	const [login, setLogin] = useState(false);
+	const [cookies] = useCookies();
 
 	const { username = '', code = '' } = qs.parse(window.location.search.replace('?', '')) as FormValues;
 
@@ -33,6 +36,7 @@ const VerifyMail = () => {
 		}).then(async (res) => ({ code: res.status, text: await res.text() }));
 
 	useEffect(() => {
+		document.title = 'Verify Your Email | Medicare';
 		if (!username || !code) return undefined;
 
 		(async () => {
@@ -41,14 +45,26 @@ const VerifyMail = () => {
 			setDone(true);
 		})();
 
+		(async () => {
+			const { status } = await fetch(`${api}/auth/validate-login`, {
+				method: 'POST',
+				body: JSON.stringify(cookies),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			if (status === 200) setLogin(true);
+		})();
+
 		return undefined;
-	}, [username, code]);
+	}, [username, code, cookies]);
 
 	return (
 		<div className='box col-md-6 mx-auto justify-content-center'>
 			<h2 id='title' className='text-center em'>
 				Verify Your Email
 			</h2>
+			{login && <Redirect to={{ pathname: '/dashboard' }}></Redirect>}
 			{!done && (
 				<Formik
 					initialValues={{ username, code }}

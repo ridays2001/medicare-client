@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
+import { Link, Redirect } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
@@ -10,24 +11,37 @@ import FailMessage from '../components/FailMessage';
 import PasswordField from '../components/PasswordField';
 import SubmitButton from '../components/SubmitButton';
 import { UserPinIcon } from '../util/icons';
-import { Link } from 'react-router-dom';
 
 const Login = () => {
-	useEffect(() => {
-		document.title = 'Login | Medicare';
-		return undefined;
-	}, []);
-
 	const [done, setDone] = useState(false);
 	const [fail, setFail] = useState<string | undefined>(undefined);
 	const [pass, setPass] = useState(false);
-	const [_, setCookie] = useCookies();
+	const [login, setLogin] = useState(false);
+	const [cookies, setCookie] = useCookies();
+
+	useEffect(() => {
+		document.title = 'Login | Medicare';
+
+		(async () => {
+			const { status } = await fetch(`${api}/auth/validate-login`, {
+				method: 'POST',
+				body: JSON.stringify(cookies),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			if (status === 200) setLogin(true);
+		})();
+
+		return undefined;
+	}, [cookies]);
 
 	return (
 		<div className='box col-11 col-md-6 mx-auto justify-content-center py-5'>
 			<h2 id='title' className='text-center'>
 				Login
 			</h2>
+			{login && <Redirect to={{ pathname: '/dashboard' }}></Redirect>}
 			{!done && (
 				<Formik
 					initialValues={{ username: '', password: '' }}

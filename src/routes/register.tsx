@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { api } from '../util/misc';
@@ -12,20 +13,35 @@ import SubmitButton from '../components/SubmitButton';
 import { AtIcon, UserIcon, UserPinIcon, CalendarIcon } from '../util/icons';
 
 const Register = () => {
-	useEffect(() => {
-		document.title = 'Register | Medicare';
-		return undefined;
-	}, []);
-
 	const [done, setDone] = useState(false);
 	const [fail, setFail] = useState<string | undefined>(undefined);
 	const [pass, setPass] = useState(false);
+	const [login, setLogin] = useState(false);
+	const [cookies] = useCookies();
+
+	useEffect(() => {
+		document.title = 'Register | Medicare';
+
+		(async () => {
+			const { status } = await fetch(`${api}/auth/validate-login`, {
+				method: 'POST',
+				body: JSON.stringify(cookies),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			if (status === 200) setLogin(true);
+		})();
+
+		return undefined;
+	}, [cookies]);
 
 	return (
 		<div className='box col-11 col-md-6 mx-auto justify-content-center py-5'>
 			<h2 id='title' className='text-center'>
 				Register New User
 			</h2>
+			{login && <Redirect to={{ pathname: '/dashboard' }}></Redirect>}
 			{!done && (
 				<Formik
 					initialValues={{ name: '', username: '', dob: '', email: '', password: '' }}
