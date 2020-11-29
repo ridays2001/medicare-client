@@ -5,6 +5,9 @@ import Verify from './routes/verify';
 import ReqReset from './routes/reqReset';
 import ResetPassword from './routes/resetPassword';
 import Dashboard from './routes/dashboard';
+import Doctors from './routes/doctors';
+import Stores from './routes/stores';
+import Meds from './routes/meds';
 import Error from './routes/error';
 
 type RouteType = {
@@ -50,6 +53,21 @@ const routes: Array<RouteType> = [
 		path: '/dashboard',
 		component: Dashboard,
 		key: 'dashboard'
+	},
+	{
+		path: '/doctors',
+		component: Doctors,
+		key: 'doctors'
+	},
+	{
+		path: '/stores',
+		component: Stores,
+		key: 'stores'
+	},
+	{
+		path: '/medicines',
+		component: Meds,
+		key: 'medicines'
 	},
 	{
 		component: Error,
