@@ -1,6 +1,9 @@
 import Home from './routes/home';
 import Register from './routes/register';
 import Login from './routes/login';
+import Verify from './routes/verify';
+import ReqReset from './routes/reqReset';
+import ResetPassword from './routes/resetPassword';
 import Error from './routes/error';
 
 type RouteType = {
@@ -26,6 +29,21 @@ const routes: Array<RouteType> = [
 		path: '/login',
 		component: Login,
 		key: 'login'
+	},
+	{
+		path: '/verify',
+		component: Verify,
+		key: 'verify'
+	},
+	{
+		path: '/request-pwd-reset',
+		component: ReqReset,
+		key: 'request-password-reset'
+	},
+	{
+		path: '/reset-pwd',
+		component: ResetPassword,
+		key: 'reset-password'
 	},
 	{
 		component: Error,
