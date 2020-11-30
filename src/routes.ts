@@ -8,6 +8,7 @@ import Dashboard from './routes/dashboard';
 import Doctors from './routes/doctors';
 import Stores from './routes/stores';
 import Meds from './routes/meds';
+import LogOut from './routes/logout';
 import Error from './routes/error';
 
 type RouteType = {
@@ -68,6 +69,11 @@ const routes: Array<RouteType> = [
 		path: '/medicines',
 		component: Meds,
 		key: 'medicines'
+	},
+	{
+		path: '/logout',
+		component: LogOut,
+		key: 'logout'
 	},
 	{
 		component: Error,
