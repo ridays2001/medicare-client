@@ -70,7 +70,7 @@ const Doctors = () => {
 							{list
 								.filter((doc) =>
 									[doc.locality, doc.name, doc.speciality, `${doc.pin_code}`].some((e) =>
-										e.toLowerCase().includes(search)
+										e.toLowerCase().includes(search.toLowerCase())
 									)
 								)
 								.map((doc) => (

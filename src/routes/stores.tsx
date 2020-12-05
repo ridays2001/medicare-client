@@ -71,7 +71,7 @@ const Stores = () => {
 							{list
 								.filter((store) =>
 									[store.locality, store.name, store.website, `${store.pin_code}`].some((e) =>
-										e.toLowerCase().includes(search)
+										e.toLowerCase().includes(search.toLowerCase())
 									)
 								)
 								.map((store) => (
